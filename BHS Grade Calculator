@@ -1,0 +1,99 @@
+from tkinter import *
+from PIL import Image, ImageTk
+import io
+import urllib
+from io import BytesIO
+import webbrowser
+
+def calculate(q1, q2, mt, q3):   
+    total_grade= (810-(q1*2 + q2*2 + mt +q3*2))/2     
+    if total_grade <=100 and total_grade > 0:
+        print "Grade needed to be exempt from the final is:" + str (total_grade)
+        output=Label(window, text="Grade needed to be exempt from the final is: " + str (total_grade) + "                               ")
+        output.place(x=235, y=200)
+    elif total_grade <= 0:
+        output=Label(window, text="You are exempt no matter what. You could get a " + str (total_grade) + "                                ")
+        output.place(x=235, y=200)
+    else:
+        print"You have to take the Final. You would need:" + str (total_grade)
+        output=Label(window, text="You have to take the Final. You would need: " + str (total_grade) + "                                            ")
+        output.place(x=235, y=200)
+        
+def calculate2():
+    q1=float(txtfld1.get())
+    q2=float(txtfld2.get())
+    mt=float(txtfld3.get())
+    q3=float(txtfld4.get())
+    calculate(q1, q2, mt, q3)
+         
+def calculate3(q1, q2, mt, q3):
+    total_grade= (540-(q1*2 + q2*2 + mt +q3*2))/2
+    if total_grade <=100 and total_grade > 0:
+        print "Grade needed to pass course:" + str (total_grade)
+        output=Label(window, text="        Grade needed to pass course: " + str (total_grade) + "                                                  ")
+        output.place(x=235, y=200)
+    elif total_grade <= 0:
+        output=Label(window, text="You will pass no matter what. You could get a " + str (total_grade) + "                                      ")
+        output.place(x=235, y=200)
+    else:
+        print"You can't pass. Required: " + str (total_grade)
+        output=Label(window, text="                       You can't pass. Required: " + str (total_grade) + "                                              ")
+        output.place(x=235, y=200)
+        
+def calculate4():
+    q1=float(txtfld1.get())
+    q2=float(txtfld2.get())
+    mt=float(txtfld3.get())
+    q3=float(txtfld4.get())
+    calculate3(q1, q2, mt, q3)
+           
+window=Tk()
+window.title("Grade Calculator")
+window.resizable(0, 0)
+try:
+    image_url="https://i.imgur.com/ZUTcbw5.png"
+    load = Image.open(io.BytesIO(urllib.urlopen(image_url).read()))
+    render = ImageTk.PhotoImage(load)
+    img = Label(window, image=render)
+    img.image = render
+    img.place(x=30, y=15)
+except:
+    print "*Paste into Google: https://i.imgur.com/ZUTcbw5.png"
+def urmom():
+    webbrowser.open("https://www.instagram.com/max_moynihan/") 
+    webbrowser.open("http://maxmoynihan.com/news")
+    
+#Labels   
+
+textq1=Label(window, text="Q1")
+textq1.place(x=140, y=120)
+textq2=Label(window, text="Q2")
+textq2.place(x=290, y=120)
+textmt=Label(window, text="Midterm")
+textmt.place(x=420, y=120)
+textq3=Label(window, text="Q3")
+textq3.place(x=590, y=120)
+
+#Buttons
+
+btn0=Button(window, text="Don't Click Here" , command=urmom)
+btn0.place(x=0, y=270)
+btn1=Button(window, text="Calculate Final Grade Needed To Be Exempt From Final (90)", fg='dark green', command=calculate2)
+btn1.place(x=218, y=30)
+btn2=Button(window, text="Calculate Final Grade Needed To Pass Course (60)", fg='red', command=calculate4)
+btn2.place(x=240, y=80)
+
+#Textboxes
+
+txtfld1=Entry(window, text="Quarter 1", bd=5)
+txtfld1.place(x=80, y=150)
+txtfld2=Entry(window, text="Quarter 2", bd=5)
+txtfld2.place(x=230, y=150)
+txtfld3=Entry(window, text="Midterm", bd=5)
+txtfld3.place(x=380, y=150)
+txtfld4=Entry(window, text="Quarter 3", bd=5)
+txtfld4.place(x=530, y=150)
+
+window.geometry("750x300+300+300")
+window.lift()
+window.mainloop()
